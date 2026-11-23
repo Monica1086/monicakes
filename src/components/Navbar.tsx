@@ -1,300 +1,107 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, MessageCircle } from "lucide-react";
+import logo from "../assets/images/logo-monicakes.png";
+
+const menus = [
+  { name: "HOME", link: "/" },
+  { name: "ABOUT", link: "/#about" },
+  { name: "COOKIES", link: "/cookies" },
+  { name: "PUDDING", link: "/pudding" },
+  { name: "CAKE", link: "/cake" },
+  { name: "HAMPERS", link: "/hampers" },
+  { name: "CONTACT", link: "/#contact" },
+];
+
 
 function Navbar() {
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [userName, setUserName] = useState<string | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // =====================================
-  // MENGECEK USER YANG SEDANG LOGIN
-  // =====================================
-  useEffect(() => {
-    const updateUser = () => {
-      const name = localStorage.getItem("userName");
-      setUserName(name);
-    };
-
-    // Cek saat Navbar pertama kali dibuka
-    updateUser();
-
-    // Dengarkan event LOGIN
-    window.addEventListener("login", updateUser);
-
-    // Dengarkan event LOGOUT
-    window.addEventListener("logout", updateUser);
-
-    // Bersihkan event listener
-    return () => {
-      window.removeEventListener("login", updateUser);
-      window.removeEventListener("logout", updateUser);
-    };
-  }, []);
-
-  // =====================================
-  // LOGOUT
-  // =====================================
-  const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userId");
-
-    // Update Navbar langsung
-    setUserName(null);
-
-    // Tutup menu mobile
-    setIsMenuOpen(false);
-
-    // Beritahu komponen lain bahwa user logout
-    window.dispatchEvent(new Event("logout"));
-
-    navigate("/login");
-  };
-
-  // =====================================
-  // MENUTUP MENU MOBILE
-  // =====================================
   const closeMenu = () => {
-    setIsMenuOpen(false);
+    setIsOpen(false);
   };
 
   return (
-    <nav className="bg-red-600">
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
 
-      <div className="mx-auto max-w-7xl px-6 py-4">
+      {/* Announcement Bar */}
+      <div className="bg-[#F8E5E9] text-center py-2">
+        <p className="text-[10px] sm:text-xs tracking-widest text-[#811E2B]">
+          CHRISTMAS PRE-ORDER 2026 IS NOW OPEN
+        </p>
+      </div>
 
-        {/* =====================================
-            DESKTOP & TOMBOL HAMBURGER
-        ====================================== */}
+      {/* Brand Header */}
+      <div className="relative flex justify-center items-center py-2 md:py-3">
 
-        <div className="flex items-center justify-end">
+        {/* Hamburger - Mobile */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="absolute left-5 md:hidden text-[#811E2B]"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          {isOpen ? <X size={25} /> : <Menu size={25} />}
+        </button>
 
-          {/* =====================================
-              MENU DESKTOP
-          ====================================== */}
+        {/* Logo */}
+        <Link to="/" onClick={closeMenu}>
+          <img
+            src={logo}
+            alt="MONICAKES"
+            className="w-[190px] sm:w-[230px] md:w-[320px] h-auto object-contain"
+          />
+        </Link>
 
-          <div className="hidden items-center gap-8 text-base font-semibold text-white lg:flex">
-
-            <Link
-              to="/"
-              className="transition hover:text-gray-200"
-            >
-              Beranda
-            </Link>
-
-            <Link
-              to="/about"
-              className="transition hover:text-gray-200"
-            >
-              Tentang Kami
-            </Link>
-
-            <Link
-              to="/product"
-              className="transition hover:text-gray-200"
-            >
-              Produk
-            </Link>
-
-            <Link
-              to="/artikel"
-              className="transition hover:text-gray-200"
-            >
-              Artikel
-            </Link>
-
-            <Link
-              to="/location"
-              className="transition hover:text-gray-200"
-            >
-              Lokasi
-            </Link>
-
-            <Link
-              to="/teams"
-              className="transition hover:text-gray-200"
-            >
-              Tim Kami
-            </Link>
-
-            {/* LOGIN DESKTOP */}
-
-            {userName ? (
-              <>
-                <span>
-                  Halo, {userName}
-                </span>
-
-                <button
-                  onClick={handleLogout}
-                  className="cursor-pointer rounded-lg bg-white px-4 py-2 text-red-600 transition hover:bg-gray-100"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="transition hover:text-gray-200"
-                >
-                  Masuk
-                </Link>
-
-                <Link
-                  to="/register"
-                  className="rounded-lg bg-white px-4 py-2 text-red-600 transition hover:bg-gray-100"
-                >
-                  Daftar
-                </Link>
-              </>
-            )}
-
-          </div>
-
-          {/* =====================================
-              HAMBURGER MOBILE
-          ====================================== */}
-
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="rounded-lg p-2 text-3xl text-white lg:hidden"
-            aria-label="Buka menu"
-          >
-            {isMenuOpen ? "✕" : "☰"}
-          </button>
-
-        </div>
-
-        {/* =====================================
-            MENU MOBILE
-        ====================================== */}
-
-        {isMenuOpen && (
-          <div className="mt-4 border-t border-red-500 pt-4 lg:hidden">
-
-            <div className="flex flex-col gap-1 text-base font-semibold text-white">
-
-              {/* BERANDA */}
-
-              <Link
-                to="/"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-3 transition hover:bg-red-700"
-              >
-                Beranda
-              </Link>
-
-              {/* TENTANG */}
-
-              <Link
-                to="/about"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-3 transition hover:bg-red-700"
-              >
-                Tentang Kami
-              </Link>
-
-              {/* PRODUK */}
-
-              <Link
-                to="/product"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-3 transition hover:bg-red-700"
-              >
-                Produk
-              </Link>
-
-              {/* ARTIKEL */}
-
-              <Link
-                to="/artikel"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-3 transition hover:bg-red-700"
-              >
-                Artikel
-              </Link>
-
-              {/* LOKASI */}
-
-              <Link
-                to="/location"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-3 transition hover:bg-red-700"
-              >
-                Lokasi
-              </Link>
-
-              {/* TIM KAMI */}
-
-              <Link
-                to="/teams"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-3 transition hover:bg-red-700"
-              >
-                Tim Kami
-              </Link>
-
-              {/* =================================
-                  LOGIN / LOGOUT MOBILE
-              ================================== */}
-
-              <div className="mt-3 border-t border-red-500 pt-3">
-
-                {userName ? (
-                  <>
-                    {/* NAMA USER */}
-
-                    <div className="px-4 py-3">
-                      Halo, {userName}
-                    </div>
-
-                    {/* LOGOUT */}
-
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="w-full rounded-lg bg-white px-4 py-3 text-left text-red-600 transition hover:bg-gray-100"
-                    >
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <div className="flex gap-3 px-4">
-
-                    {/* MASUK */}
-
-                    <Link
-                      to="/login"
-                      onClick={closeMenu}
-                      className="flex-1 rounded-lg border border-white px-4 py-3 text-center transition hover:bg-red-700"
-                    >
-                      Masuk
-                    </Link>
-
-                    {/* DAFTAR */}
-
-                    <Link
-                      to="/register"
-                      onClick={closeMenu}
-                      className="flex-1 rounded-lg bg-white px-4 py-3 text-center text-red-600 transition hover:bg-gray-100"
-                    >
-                      Daftar
-                    </Link>
-
-                  </div>
-                )}
-
-              </div>
-
-            </div>
-          </div>
-        )}
+        {/* WhatsApp Icon - Mobile */}
+        <a
+          href="https://wa.me/6287785667603"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute right-5 md:hidden text-[#811E2B]"
+          aria-label="Contact MONICAKES via WhatsApp"
+        >
+          <MessageCircle size={23} />
+        </a>
 
       </div>
-    </nav>
+
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex justify-center items-center gap-8 lg:gap-12 xl:gap-16 flex-wrap pb-6">
+        {menus.map((menu) => (
+          <Link
+            key={menu.name}
+            to={menu.link}
+            className="text-sm lg:text-base tracking-[0.12em] font-medium text-[#302927] hover:text-[#B08D57] transition-colors duration-300"
+          >
+            {menu.name}
+          </Link>
+        ))}
+      </nav>
+
+      {/* Mobile Navigation */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "max-h-[450px] opacity-100 border-t border-[#F0E5DC]"
+            : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="flex flex-col items-center py-3 bg-white">
+          {menus.map((menu) => (
+            <Link
+              key={menu.name}
+              to={menu.link}
+              onClick={closeMenu}
+              className="w-full text-center py-3 text-sm tracking-[0.15em] font-medium text-[#302927] hover:text-[#B08D57] hover:bg-[#F8F5EF] transition-colors"
+            >
+              {menu.name}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+    </header>
   );
 }
 

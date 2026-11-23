@@ -1,98 +1,30 @@
-import { Link } from "react-router-dom";
-import {
-  MapPin,
-  Mail,
-  MessageCircle,
-} from "lucide-react";
 
 function Footer() {
   return (
-    <footer className="bg-red-700 text-white mt-10">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-8 py-10 md:grid-cols-[2fr_1fr_1fr_1fr]">
+    <footer className="bg-[#811E2B] text-white py-10 sm:py-12 px-5 sm:px-8">
 
-        {/* Logo */}
-        <div>
-          <img
-            src="/logo optik pupil ada marlin.jpg"
-            alt="Optik Pupil"
-            className="h-20 w-auto"
-          />
+      <div className="max-w-6xl mx-auto text-center">
 
-          <p className="mt-4 text-sm leading-6">
-            Provider Optik BPJS Kesehatan yang melayani pemeriksaan mata,
-            pembuatan kacamata, dan konsultasi penglihatan sejak tahun 2016.
-          </p>
-        </div>
+        <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.15em]">
+          MONICAKES
+        </h2>
 
-        {/* Menu */}
-        <div>
-          <h3 className="mb-4 text-xl font-semibold">
-            Quick Links
-          </h3>
+        <p className="text-[#E8D5A8] text-xs sm:text-sm mt-3 tracking-wider">
+          Made with LOVE
+        </p>
 
-          <div className="flex flex-col gap-2">
-            <Link to="/" className="hover:underline">
-              Home
-            </Link>
+        <div className="w-14 sm:w-16 h-px bg-[#B08D57] mx-auto my-5 sm:my-6" />
 
-            <Link to="/about" className="hover:underline">
-              About
-            </Link>
+        <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
+          Homemade with love for your special moments.
+        </p>
 
-            <Link to="/product" className="hover:underline">
-              Produk
-            </Link>
+        <p className="text-[10px] sm:text-xs text-white/60 mt-7 sm:mt-8">
+          © 2026 MONICAKES. All Rights Reserved.
+        </p>
 
-            <Link to="/artikel" className="hover:underline">
-              Artikel
-            </Link>
-          </div>
-        </div>
-
-        {/* Jam Operasional */}
-        <div>
-          <h3 className="mb-4 text-xl font-semibold">
-            Jam Operasional
-          </h3>
-        <div className="space-y-2 text-sm">
-          <p>Senin - Sabtu : 08.00 - 20.30</p>
-          <p>Minggu/Hari Libur : 08.30 - 16.00</p>
-        </div>
-        </div>
-        {/* Kontak */}
-        <div>
-          <h4 className="mb-4 text-xl font-semibold">
-            Hubungi Kami
-          </h4>
-
-         <div className="space-y-3 text-sm">
-
-  <p className="flex items-center gap-3">
-    <MapPin size={18} />
-    Jl. Raya Menganti No. 878, Laban Wetan, Gresik
-  </p>
-
-  <p className="flex items-center gap-3">
-    <MessageCircle size={18} />
-    0811-3148-300
-  </p>
-
-  <p className="flex items-center gap-3">
-    <Mail size={18} />
-    optikpupil@gmail.com
-  </p>
-
-  <p className="flex items-center gap-3">
-  📷
-  @monicakes._
-</p>
-
-</div>
-        </div>
       </div>
-      <div className="border-t border-red-500 py-4 text-center text-sm">
-        © 2026 Optik Pupil. All Rights Reserved.
-      </div>
+
     </footer>
   );
 }
