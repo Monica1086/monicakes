@@ -1,22 +1,30 @@
 
+
 function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[520px] sm:min-h-[580px] md:min-h-[680px] flex items-center overflow-hidden"
+      className="relative w-full overflow-hidden bg-[#3B070B] md:min-h-[680px] md:flex md:items-center"
     >
-
       {/* Background Image */}
       <img
         src="/images/christmas-hero.png"
-        alt="Monicakes Christmas Collection"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        alt="MONICAKES Early Bird Christmas Hampers Promotion"
+        className="
+          block
+          w-full
+          h-auto
+          md:absolute
+          md:inset-0
+          md:w-full
+          md:h-full
+          md:object-cover
+          md:object-center
+        "
       />
 
-    
       {/* Bottom Decoration */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#B08D57]"></div>
-
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#B08D57]" />
     </section>
   );
 }
